@@ -1,10 +1,10 @@
+import os
 import streamlit as st
 import numpy as np
 import pickle as pkl
-import zipfile
 import tensorflow as tf
 from PIL import Image
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, snapshot_download
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.layers import GlobalMaxPool2D
@@ -14,8 +14,9 @@ VERI='Sibeller/fashion-data' # Hugging Face veri deposu (dataset)
 
 @st.cache_resource
 def yukle():
-    zipfile.ZipFile(hf_hub_download(VERI,'images.zip',repo_type='dataset')).extractall('.') # fotoğrafları images klasörüne açar
+    klasor=snapshot_download(VERI,repo_type='dataset',allow_patterns=['images/*']) # images klasöründeki fotoğrafları indirir
     filenames=pkl.load(open(hf_hub_download(VERI,'filenames.pkl',repo_type='dataset'),'rb'))
+    filenames=[os.path.join(klasor,'images',os.path.basename(str(f).replace('\\','/'))) for f in filenames] # dosya yollarını indirilen klasöre göre düzeltir
     Image_features=pkl.load(open(hf_hub_download(VERI,'Images_features.pkl',repo_type='dataset'),'rb'))
     neighbors=NearestNeighbors(n_neighbors=6,algorithm='brute',metric='cosine')
     neighbors.fit(Image_features)
