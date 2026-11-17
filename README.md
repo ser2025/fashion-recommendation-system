@@ -2,10 +2,13 @@
 
 **Bir fotoğraf yükleyin, görsel olarak benzer moda ürünlerini saniyeler içinde bulun.**
 
+[![Canlı demo](https://img.shields.io/badge/Canl%C4%B1%20demo-Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://sibel-fashion-recommendation.streamlit.app/)
+[![Veri seti](https://img.shields.io/badge/Veri%20seti-Hugging%20Face-FFD21E?style=flat&logo=huggingface&logoColor=black)](https://huggingface.co/datasets/Sibeller/fashion-data)
+
 Bu proje, derin öğrenme ile görüntülerden özellik çıkaran ve en benzer ürünleri öneren içerik tabanlı bir öneri sistemidir. Arayüz Streamlit ile hazırlanmıştır.
 
-<!-- Uygulamanın ekran görüntüsünü veya kısa bir GIF'ini buraya ekleyin -->
-<!-- ![Uygulama ekran görüntüsü](screenshot.png) -->
+🔗 **Canlı demo:** https://sibel-fashion-recommendation.streamlit.app/
+*(Uygulama bir süre kullanılmadığında uykuya geçer; ilk açılış birkaç dakika sürebilir.)*
 
 ---
 
@@ -27,18 +30,20 @@ Görsel ──► VGG16 (ImageNet) ──► GlobalMaxPooling ──► Özellik
 
 Uygulamada iki sekme bulunur:
 
-- **Katalogdan seç:** Kaydırıcı ile bir ürün seçin, benzer 5 ürünü görün.
+- **Listeden ürün seç:** Kaydırıcı ile bir ürün seçin, benzer 5 ürünü görün.
 - **Fotoğraf yükle:** Kendi fotoğrafınızı yükleyin, sistem katalogdaki en benzer 5 ürünü göstersin.
 
 ## 📦 Veri
 
-Ürün görselleri ve önceden hesaplanmış özellik vektörleri Hugging Face üzerinde barındırılır: [`Sibeller/fashion-data`](https://huggingface.co/datasets/Sibeller/fashion-data). Uygulama ilk çalıştığında bu dosyaları otomatik olarak indirir ve önbelleğe alır.
+Ürün görselleri ve önceden hesaplanmış özellik vektörleri Hugging Face'te barındırılır: [`Sibeller/fashion-data`](https://huggingface.co/datasets/Sibeller/fashion-data). Uygulama ilk çalıştığında bu dosyaları otomatik olarak indirir ve önbelleğe alır.
+
+Uygulama, Hugging Face'te görseli bulunan ürünlerle çalışır; görseli olmayan ürünler katalogdan otomatik olarak çıkarılır.
 
 ## 🛠️ Teknolojiler
 
 `Python` · `TensorFlow / Keras (VGG16)` · `scikit-learn` · `Streamlit` · `Hugging Face Hub`
 
-## 🚀 Kurulum ve çalıştırma
+## 🚀 Kendi bilgisayarınızda çalıştırma
 
 ```bash
 git clone https://github.com/ser2025/fashion-recommendation-system.git
@@ -47,15 +52,19 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-<!-- Canlı demo varsa: 🔗 **Canlı demo:** [buraya bağlantı](https://...) -->
+## 📁 Dosyalar
+
+| Dosya | Açıklama |
+|---|---|
+| `app.py` | Streamlit uygulaması: veriyi indirir, modeli kurar, önerileri gösterir |
+| `requirements.txt` | Gerekli Python paketleri |
 
 ## 📈 Geliştirme fikirleri
 
 - [ ] Daha hafif ve hızlı modellerle (ResNet50, EfficientNet) karşılaştırma
 - [ ] Büyük kataloglar için FAISS ile hızlı benzerlik araması
 - [ ] Renk / kategori filtresi ekleme
-- [ ] Streamlit Community Cloud veya Hugging Face Spaces'te canlı demo
 
 ## 👩‍💻 Geliştirici
 
-**Sibel Er** · [LinkedIn](https://www.linkedin.com/in/sibel-e-b8166b162) · [Kaggle](https://www.kaggle.com/sibeler) · [GitHub](https://github.com/ser2025)
+**Sibel Er** · [LinkedIn](https://www.linkedin.com/in/sibel-e-b8166b162) · [Kaggle](https://www.kaggle.com/sibeler) · [Hugging Face](https://huggingface.co/Sibeller) · [Diğer projeler](https://github.com/ser2025/veri-bilimi-projeleri)
