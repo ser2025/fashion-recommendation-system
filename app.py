@@ -18,6 +18,9 @@ def yukle():
     filenames=pkl.load(open(hf_hub_download(VERI,'filenames.pkl',repo_type='dataset'),'rb'))
     filenames=[os.path.join(klasor,'images',os.path.basename(str(f).replace('\\','/'))) for f in filenames] # dosya yollarını indirilen klasöre göre düzeltir
     Image_features=pkl.load(open(hf_hub_download(VERI,'Images_features.pkl',repo_type='dataset'),'rb'))
+    var=[i for i,f in enumerate(filenames) if os.path.exists(f)] # sadece Hugging Face'te bulunan fotoğrafları kullanır
+    filenames=[filenames[i] for i in var]
+    Image_features=np.array(Image_features)[var]
     neighbors=NearestNeighbors(n_neighbors=6,algorithm='brute',metric='cosine')
     neighbors.fit(Image_features)
     model=VGG16(weights='imagenet',include_top=False,input_shape=(64,64,3))
@@ -34,22 +37,3 @@ def extract_features_from_images(resim, model):
     img_preprocess=preprocess_input(img_expand_dim)
     result=model.predict(img_preprocess,verbose=0).flatten()
     return result/np.linalg.norm(result)
-
-def benzerleri_goster(ozellik):
-    distance,indices=neighbors.kneighbors([ozellik])
-    st.subheader('Benzer ürünler')
-    st.image(np.array(filenames)[indices[0][1:6]].tolist(),width=120)
-
-st.title('Moda Ürünü Öneri Sistemi (VGG16)')
-sekme1,sekme2=st.tabs(['Listeden ürün seç','Fotoğraf yükle'])
-
-with sekme1:
-    sira=st.slider('Ürün numarası',0,len(filenames)-1,100)
-    st.image(filenames[sira],width=150,caption='Seçilen ürün')
-    benzerleri_goster(Image_features[sira])
-
-with sekme2:
-    dosya=st.file_uploader('Ürün fotoğrafı',type=['jpg','jpeg','png']) or filenames[2000]
-    resim=Image.open(dosya).convert('RGB')
-    st.image(resim,width=150,caption='Yüklenen ürün')
-    benzerleri_goster(extract_features_from_images(resim,model))
