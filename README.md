@@ -58,4 +58,4 @@ streamlit run app.py
 
 ## 👩‍💻 Geliştirici
 
-**Sibel Er** · [LinkedIn](https://www.linkedin.com/in/sibeler) · [Kaggle](https://www.kaggle.com/sibeler) · [GitHub](https://github.com/ser2025)
+**Sibel Er** · [LinkedIn](https://www.linkedin.com/in/sibel-e-b8166b162) · [Kaggle](https://www.kaggle.com/sibeler) · [GitHub](https://github.com/ser2025)
